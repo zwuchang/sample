@@ -67,6 +67,13 @@
    }
  }
 
+ #logout {
+   cursor: default;
+   &:hover {
+     background-color: transparent;
+   }
+ }
+
  /* footer */
 
  footer {
@@ -158,6 +165,10 @@
 
  input {
    height: auto !important;
+ }
+
+ .checkbox input{
+    width:auto;
  }
 
  .panel {

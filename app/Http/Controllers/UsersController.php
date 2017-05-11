@@ -7,6 +7,8 @@ use App\Models\User;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use Auth;
+
 class UsersController extends Controller
 {
     /**
@@ -48,6 +50,9 @@ class UsersController extends Controller
             'email' =>  $request->email,
             'password'  =>  bcrypt($request),
         ]);
+
+        //注册成功后自动登录
+        Auth::login($user);
 
         session()->flash('success','欢迎，您在这里将开启一段新的旅程。');
         return redirect()->route('users.show',[$user]);
