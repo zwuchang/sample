@@ -79,7 +79,8 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::findOrFail($id);
+        return view('users.edit',compact('user'));
     }
 
     /**
@@ -91,7 +92,18 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request,[
+           'name'   =>  'required|max:255',
+            'password'  =>  'required|min:6|confirmed'
+        ]);
+
+        $user = User::findOrFail($id);
+        $user->update([
+            'name'  =>  $request->name,
+            'password'  =>  bcrypt($request->password)
+        ]);
+
+        return redirect()->route('users.show',$id);
     }
 
     /**
